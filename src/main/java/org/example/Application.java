@@ -1,17 +1,17 @@
 package org.example;
 
-import org.example.exception.NumberNotAllowException;
+import org.example.domain.money.Money;
 import org.example.view.InputView;
-import org.example.view.OutputView;
+
+import java.math.BigDecimal;
 
 public class Application {
+    
     private InputView inputView = new InputView();
-    private OutputView outputView = new OutputView();
     
     public void startApplication() {
-        int amount = inputView.enterPurchaseAmount(outputView);
-        if (amount < 1000) {
-            throw new NumberNotAllowException();
-        }
+            int input = inputView.enterPurchaseAmount();
+            BigDecimal amount = new BigDecimal(input);
+            Money money = Money.create(amount);
     }
 }
