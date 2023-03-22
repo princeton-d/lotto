@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.domain.lotto.Lotto;
 import org.example.domain.money.Money;
 import org.example.view.InputView;
 
@@ -14,11 +13,9 @@ public class Application {
     public void startApplication() {
         int input = inputView.enterPurchaseAmount();
         int numberOfHandwritingLotto = inputView.enterNumberOfHandwritingLotto();
+        Money money = Money.create(new BigDecimal(input));
         List<String> pickLottoNumberList = inputView.pickLottoNumber(numberOfHandwritingLotto);
-    
-        System.out.println(pickLottoNumberList);
-        
-        BigDecimal amount = new BigDecimal(input);
-        Money money = Money.create(amount);
+        int numberOfAutoLotto = money.calculateNumberOfAutoLotto(numberOfHandwritingLotto);
+        inputView.printResultOfLottoPurchase(numberOfHandwritingLotto, numberOfAutoLotto);
     }
 }

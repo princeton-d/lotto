@@ -41,6 +41,10 @@ public class InputView {
         return lottoList;
     }
     
+    public void printResultOfLottoPurchase(int numberOfHandwritingLotto, int numberOfAutoLotto) {
+        System.out.println("\n수동으로 " + numberOfHandwritingLotto + "장, 자동으로 " + numberOfAutoLotto + "개를 구매했습니다.");
+    }
+    
     private void validateAmount(int amount) {
         if (amount < PRICE_OF_LOTTO) {
             throw new NumberNotAllowException();
