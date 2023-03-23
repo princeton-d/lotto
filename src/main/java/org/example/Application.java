@@ -18,17 +18,18 @@ public class Application {
         Money money = Money.create(new BigDecimal(input));
         List<String> pickLottoNumberList = inputView.pickLottoNumber(numberOfHandwritingLotto);
         int numberOfAutoLotto = money.calculateNumberOfAutoLotto(numberOfHandwritingLotto);
+        
         inputView.printResultOfLottoPurchase(numberOfHandwritingLotto, numberOfAutoLotto);
+        List<List<Integer>> autoLottoList = this.createAutoLottoNumbers(numberOfAutoLotto);
         
-        List<List<Integer>> autoLottoNumberList = this.createAutoLottoNumbers(numberOfAutoLotto);
-        
-        System.out.println(autoLottoNumberList.get(1));
+        inputView.printAutoLottoList(autoLottoList);
     }
     
     private List<List<Integer>> createAutoLottoNumbers(int numberOfAutoLotto) {
         List<List<Integer>> autoLottoNumberList = new ArrayList<>();
+        
         for (int i = 0; i < numberOfAutoLotto; i++) {
-            List<Integer> randomNumberLotto = randomNumberUtil.create();
+            List<Integer> randomNumberLotto = this.randomNumberUtil.create();
             autoLottoNumberList.add(randomNumberLotto);
         }
         
