@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.exception.NumberNotAllowException;
+import org.example.util.RandomNumberUtil;
 
 import java.util.ArrayList;
 import java.util.List;
