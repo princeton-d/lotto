@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.domain.money.Money;
 import org.example.util.RandomNumberUtil;
+import org.example.util.WritingNumberUtil;
 import org.example.view.InputView;
 
 import java.math.BigDecimal;
@@ -10,13 +11,14 @@ import java.util.List;
 
 public class Application {
     private RandomNumberUtil randomNumberUtil = new RandomNumberUtil();
+    private WritingNumberUtil writingNumberUtil = new WritingNumberUtil();
     private InputView inputView = new InputView();
     
     public void startApplication() {
         int amount = inputView.enterPurchaseAmount();
         int numberOfHandwritingLotto = inputView.enterNumberOfHandwritingLotto();
         Money money = new Money(amount);
-        List<String> pickLottoNumberList = inputView.pickLottoNumber(numberOfHandwritingLotto);
+        List<List<Integer>> pickLottoList = inputView.pickLottoNumber(numberOfHandwritingLotto, writingNumberUtil);
         int numberOfAutoLotto = money.calculateNumberOfAutoLotto(numberOfHandwritingLotto);
         
         inputView.printResultOfLottoPurchase(numberOfHandwritingLotto, numberOfAutoLotto);

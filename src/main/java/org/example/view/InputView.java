@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.exception.NumberNotAllowException;
 import org.example.util.RandomNumberUtil;
+import org.example.util.WritingNumberUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +31,23 @@ public class InputView {
         return numberOfHandwritingLotto;
     }
     
-    public List<String> pickLottoNumber(int numberOfHandWritingLotto) {
+    public List<List<Integer>> pickLottoNumber(int numberOfHandWritingLotto, WritingNumberUtil writingNumberUtil) {
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        List<String> lottoList = new ArrayList<>();
+        List<List<Integer>> lottoList = new ArrayList<>();
         
         for (int i = 0; i < numberOfHandWritingLotto; i++) {
-            String lotto = SCANNER.nextLine();
+            
+            String lottoNumbers = SCANNER.nextLine();
+    
+            List<Integer> lotto = writingNumberUtil.createLotto(lottoNumbers);
+            
             lottoList.add(lotto);
         }
         
         return lottoList;
     }
+    
+    
     
     public void printResultOfLottoPurchase(int numberOfHandwritingLotto, int numberOfAutoLotto) {
         System.out.println("\n수동으로 " + numberOfHandwritingLotto + "장, 자동으로 " + numberOfAutoLotto + "개를 구매했습니다.");
