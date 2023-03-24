@@ -1,7 +1,6 @@
 package org.example.view;
 
 import org.example.exception.NumberNotAllowException;
-import org.example.util.RandomNumberUtil;
 import org.example.util.WritingNumberUtil;
 
 import java.util.ArrayList;
@@ -36,9 +35,7 @@ public class InputView {
         List<List<Integer>> lottoList = new ArrayList<>();
         
         for (int i = 0; i < numberOfHandWritingLotto; i++) {
-            
             String lottoNumbers = SCANNER.nextLine();
-    
             List<Integer> lotto = writingNumberUtil.createLotto(lottoNumbers);
             
             lottoList.add(lotto);
@@ -46,7 +43,6 @@ public class InputView {
         
         return lottoList;
     }
-    
     
     
     public void printResultOfLottoPurchase(int numberOfHandwritingLotto, int numberOfAutoLotto) {

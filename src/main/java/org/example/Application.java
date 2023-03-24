@@ -25,6 +25,8 @@ public class Application {
         List<List<Integer>> autoLottoList = this.createAutoLottoNumbers(numberOfAutoLotto);
         
         inputView.printAutoLottoList(autoLottoList);
+    
+        System.out.println(pickLottoList);
     }
     
     private List<List<Integer>> createAutoLottoNumbers(int numberOfAutoLotto) {

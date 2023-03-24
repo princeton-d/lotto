@@ -9,7 +9,7 @@ public class LottoList {
         this.lottoList = lottoList;
     }
     
-    public static void create(List<List<Integer>> autoLottoList, List<Integer> handWriteLottoList) {
+    public static void create(List<List<Integer>> autoLottoList, List<List<Integer>> pickLottoList) {
     
     }
 }

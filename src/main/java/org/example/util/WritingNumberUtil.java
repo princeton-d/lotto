@@ -23,7 +23,7 @@ public class WritingNumberUtil {
         int[] lottoNumber = new int[NUMBER_OF_LOTTO];
         
         for (int i = 0; i < NUMBER_OF_LOTTO; i++) {
-            splitLottoNumber[i].trim();
+            splitLottoNumber[i] = splitLottoNumber[i].trim();
             lottoNumber[i] = Integer.parseInt(splitLottoNumber[i]);
         }
         
