@@ -13,20 +13,26 @@ public class RandomNumberUtil {
     public List<Integer> create() {
         List<Integer> randomNumberLotto = new ArrayList<>();
 
-        for (int i = 0; i < NUMBER_OF_LOTTO_NUMBER; i++) {
-            int randomNumber = this.makeRandomNumber();
+        CreateRandomLottoNumbers(randomNumberLotto);
 
-            if (isDuplicateNumber(randomNumberLotto, randomNumber)) {
-                --i;
-            }
+        return randomNumberLotto;
+    }
 
-            if (!isDuplicateNumber(randomNumberLotto, randomNumber)) {
-                randomNumberLotto.add(randomNumber);
-            }
+    private void CreateRandomLottoNumbers(List<Integer> randomNumberLotto) {
+        int randomNumber = this.makeRandomNumber();
+
+        if (randomNumberLotto.size() == NUMBER_OF_LOTTO_NUMBER) {
+            return;
+        }
+        if (isDuplicateNumber(randomNumberLotto, randomNumber)) {
+            CreateRandomLottoNumbers(randomNumberLotto);
+        }
+        if (!isDuplicateNumber(randomNumberLotto, randomNumber)) {
+            randomNumberLotto.add(randomNumber);
             Collections.sort(randomNumberLotto);
         }
 
-        return randomNumberLotto;
+        CreateRandomLottoNumbers(randomNumberLotto);
     }
 
     private int makeRandomNumber() {
