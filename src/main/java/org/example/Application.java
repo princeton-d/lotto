@@ -13,9 +13,9 @@ public class Application {
     private InputView inputView = new InputView();
     
     public void startApplication() {
-        int input = inputView.enterPurchaseAmount();
+        int amount = inputView.enterPurchaseAmount();
         int numberOfHandwritingLotto = inputView.enterNumberOfHandwritingLotto();
-        Money money = Money.create(new BigDecimal(input));
+        Money money = new Money(amount);
         List<String> pickLottoNumberList = inputView.pickLottoNumber(numberOfHandwritingLotto);
         int numberOfAutoLotto = money.calculateNumberOfAutoLotto(numberOfHandwritingLotto);
         
