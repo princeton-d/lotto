@@ -13,8 +13,14 @@ public class RandomNumberUtil {
         
         for (int i = 0; i < NUMBER_OF_LOTTO_NUMBER; i++) {
             int randomNumber = this.makeRandomNumber();
-            if (isDuplicateNumber(randomNumberLotto, randomNumber)) --i;
-            if (!isDuplicateNumber(randomNumberLotto, randomNumber)) randomNumberLotto.add(randomNumber);
+
+            if (isDuplicateNumber(randomNumberLotto, randomNumber)) {
+                --i;
+            }
+
+            if (!isDuplicateNumber(randomNumberLotto, randomNumber)) {
+                randomNumberLotto.add(randomNumber);
+            }
             Collections.sort(randomNumberLotto);
         }
         
