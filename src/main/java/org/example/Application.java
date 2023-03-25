@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.domain.lotto.LottoList;
 import org.example.domain.money.Money;
 import org.example.util.RandomNumberUtil;
 import org.example.util.WritingNumberUtil;
@@ -26,7 +27,9 @@ public class Application {
         
         inputView.printAutoLottoList(autoLottoList);
     
-        System.out.println(pickLottoList);
+        LottoList lottoList = LottoList.create(autoLottoList, pickLottoList);
+    
+        System.out.println(lottoList);
     }
     
     private List<List<Integer>> createAutoLottoNumbers(int numberOfAutoLotto) {
