@@ -1,11 +1,9 @@
 package org.example;
 
-import org.example.domain.lotto.AutoLottoGenerator;
-import org.example.domain.lotto.Lotto;
-import org.example.domain.lotto.LottoGenerator;
-import org.example.domain.lotto.ManualLottoGenerator;
+import org.example.domain.lotto.*;
 import org.example.domain.money.Money;
 import org.example.view.InputView;
+import org.example.view.OutputView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,16 +11,16 @@ import java.util.stream.Stream;
 
 public class Application {
     private InputView inputView = new InputView();
+    private OutputView outputView = new OutputView();
     private Money money;
     
     public void startApplication() {
         money = new Money(inputView.inputMoney());
         List<Lotto> manualLottos = buyManualLotto();
         List<Lotto> autoLottos = buyAutoLotto();
-        // TODO 합치고 이후 구현
+        LottoList lottoList = new LottoList(Stream.concat(manualLottos.stream(), autoLottos.stream()).collect(Collectors.toList()));
     
-        manualLottos.addAll(autoLottos);
-        manualLottos.forEach(System.out::println);
+        outputView.printLottoList(lottoList);
     }
     
     private List<Lotto> buyManualLotto() {

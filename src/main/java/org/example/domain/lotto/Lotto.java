@@ -11,6 +11,10 @@ public class Lotto {
         this.lottoNumbers = lottoGenerator.generate();
     }
     
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
