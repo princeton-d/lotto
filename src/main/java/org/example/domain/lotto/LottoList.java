@@ -14,11 +14,11 @@ public class LottoList {
         List<Lotto> lottoList = new ArrayList<>();
     
         for (List<Integer> lotto : pickLottoList) {
-            lottoList.add(new Lotto(lotto));
+//            lottoList.add(new Lotto(lotto));
         }
         
         for (List<Integer> lotto : autoLottoList) {
-            lottoList.add(new Lotto(lotto));
+//            lottoList.add(new Lotto(lotto));
         }
     
         return new LottoList(lottoList);

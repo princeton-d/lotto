@@ -1,45 +1,49 @@
 package org.example;
 
-import org.example.domain.lotto.LottoList;
+import org.example.domain.lotto.AutoLottoGenerator;
+import org.example.domain.lotto.Lotto;
+import org.example.domain.lotto.LottoGenerator;
+import org.example.domain.lotto.ManualLottoGenerator;
 import org.example.domain.money.Money;
-import org.example.util.RandomNumberUtil;
-import org.example.util.WritingNumberUtil;
 import org.example.view.InputView;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Application {
-    private RandomNumberUtil randomNumberUtil = new RandomNumberUtil();
-    private WritingNumberUtil writingNumberUtil = new WritingNumberUtil();
     private InputView inputView = new InputView();
+    private Money money;
     
     public void startApplication() {
-        int amount = inputView.enterPurchaseAmount();
-        int numberOfHandwritingLotto = inputView.enterNumberOfHandwritingLotto();
-        Money money = new Money(amount);
-        List<List<Integer>> pickLottoList = inputView.pickLottoNumber(numberOfHandwritingLotto, writingNumberUtil);
-        int numberOfAutoLotto = money.calculateNumberOfAutoLotto(numberOfHandwritingLotto);
-        
-        inputView.printResultOfLottoPurchase(numberOfHandwritingLotto, numberOfAutoLotto);
-        List<List<Integer>> autoLottoList = this.createAutoLottoNumbers(numberOfAutoLotto);
-        
-        inputView.printAutoLottoList(autoLottoList);
+        money = new Money(inputView.inputMoney());
+        List<Lotto> manualLottos = buyManualLotto();
+        List<Lotto> autoLottos = buyAutoLotto();
+        // TODO 합치고 이후 구현
     
-        LottoList lottoList = LottoList.create(autoLottoList, pickLottoList);
-    
-        System.out.println(lottoList);
+        manualLottos.addAll(autoLottos);
+        manualLottos.forEach(System.out::println);
     }
     
-    private List<List<Integer>> createAutoLottoNumbers(int numberOfAutoLotto) {
-        List<List<Integer>> autoLottoNumberList = new ArrayList<>();
+    private List<Lotto> buyManualLotto() {
+        int manualLottoNum = inputView.inputManualLottoNum();
+        money.buyLotto(manualLottoNum);
+    
+        return Stream.generate(() -> inputView.inputManualLottoNumbers())
+            .limit(manualLottoNum)
+            .map(lottoNumbers -> new Lotto(new ManualLottoGenerator(lottoNumbers)))
+            .collect(Collectors.toList());
+    }
+    
+    private List<Lotto> buyAutoLotto() {
+        int autoLottoNum = money.countPurchasableLotto();
         
-        for (int i = 0; i < numberOfAutoLotto; i++) {
-            List<Integer> randomNumberLotto = this.randomNumberUtil.create();
-            autoLottoNumberList.add(randomNumberLotto);
-        }
-        
-        return autoLottoNumberList;
+        money.buyLotto(autoLottoNum);
+    
+        LottoGenerator autoLottoGenerator = new AutoLottoGenerator();
+    
+        return Stream.generate(() -> new Lotto(autoLottoGenerator))
+            .limit(autoLottoNum)
+            .collect(Collectors.toList());
     }
 }
