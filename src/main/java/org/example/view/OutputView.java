@@ -11,7 +11,13 @@ public class OutputView {
         System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualLottos.size(), autoLottos.size());
 
         for (Lotto lotto : lottoList.getLottoList()) {
-            System.out.println(lotto.getLottoNumbers());
+            System.out.println(lotto.getLottoNumbersArray());
         }
+    }
+
+    public void printResult() {
+        System.out.println();
+        System.out.println("당첨 통계");
+        System.out.println("---------");
     }
 }

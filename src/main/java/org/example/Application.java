@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.domain.lotto.*;
 import org.example.domain.money.Money;
+import org.example.domain.winning_number.BonusBallNumber;
+import org.example.domain.winning_number.WinningNumbers;
 import org.example.view.InputView;
 import org.example.view.OutputView;
 
@@ -21,7 +23,8 @@ public class Application {
         LottoList lottoList = new LottoList(manualLottos, autoLottos);
         outputView.printLottoList(lottoList, manualLottos, autoLottos);
 
-
+        WinningNumbers winningNumbers = new WinningNumbers(inputView.inputLastWeekWinningNumbers());
+        BonusBallNumber bonusBall = new BonusBallNumber(inputView.inputBonusBallNumber());
     }
     
     private List<Lotto> buyManualLotto() {
