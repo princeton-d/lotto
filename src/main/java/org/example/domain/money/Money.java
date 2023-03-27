@@ -13,7 +13,7 @@ public class Money {
     
     public void buyLotto(int numberOfLotto) { // 구매하려는 로또의 종류가 자동인지 수동인지 관여할 필요 없음, 구매만 하는 역할을 부여해야함.
         BigDecimal lottoPrice = PRICE_OF_LOTTO.multiply(new BigDecimal(numberOfLotto));
-        value.subtract(lottoPrice);
+        this.value = value.subtract(lottoPrice);
     }
     
     public int countPurchasableLotto() {

@@ -18,9 +18,10 @@ public class Application {
         money = new Money(inputView.inputMoney());
         List<Lotto> manualLottos = buyManualLotto();
         List<Lotto> autoLottos = buyAutoLotto();
-        LottoList lottoList = new LottoList(Stream.concat(manualLottos.stream(), autoLottos.stream()).collect(Collectors.toList()));
-    
-        outputView.printLottoList(lottoList);
+        LottoList lottoList = new LottoList(manualLottos, autoLottos);
+        outputView.printLottoList(lottoList, manualLottos, autoLottos);
+
+
     }
     
     private List<Lotto> buyManualLotto() {
