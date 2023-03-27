@@ -25,6 +25,10 @@ public class Application {
 
         WinningNumbers winningNumbers = new WinningNumbers(inputView.inputLastWeekWinningNumbers());
         BonusBallNumber bonusBall = new BonusBallNumber(inputView.inputBonusBallNumber());
+
+
+
+        outputView.printResult();
     }
     
     private List<Lotto> buyManualLotto() {

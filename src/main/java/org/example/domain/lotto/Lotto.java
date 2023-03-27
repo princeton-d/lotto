@@ -11,10 +11,6 @@ public class Lotto {
     public Lotto(LottoGenerator lottoGenerator) {
         this.lottoNumbers = lottoGenerator.generate();
     }
-    
-    public List<LottoNumber> getLottoNumbers() {
-        return this.lottoNumbers;
-    }
 
     public List<Integer> getLottoNumbersArray() {
         List<Integer> lottoNumberArray = new ArrayList<>();
