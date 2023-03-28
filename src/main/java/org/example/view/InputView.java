@@ -10,23 +10,23 @@ public class InputView {
     private static final String BLANK = "";
     private static final String DELIMITER = ",";
     private static final Scanner scanner = new Scanner(System.in);
-    
+
     public int inputMoney() {
         System.out.println("구입 금액을 입력해 주세요.");
         return nextInteger();
     }
-    
+
     public int inputManualLottoNum() {
         System.out.println();
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         return nextInteger();
     }
-    
+
     public void manualLottoNumbersGuid() {
         System.out.println();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
-    
+
     public List<Integer> inputManualLottoNumbers() {
         return extractInteger(nextString());
     }
@@ -42,22 +42,22 @@ public class InputView {
 
         return nextInteger();
     }
-    
+
     private List<Integer> extractInteger(String line) {
         return Arrays.stream(line.split(DELIMITER))
-            .distinct() // 중복을 제거하고 새로운 스트림은 반환
-            .map(Integer::parseInt) // (item -> Integer.parseInt(item))
-            .collect(Collectors.toList()); // stream 의 데이터를 변형처리 하고 원하는 자료형으로 반환
+                .distinct() // 중복을 제거하고 새로운 스트림은 반환
+                .map(Integer::parseInt) // (item -> Integer.parseInt(item))
+                .collect(Collectors.toList()); // stream 의 데이터를 변형처리 하고 원하는 자료형으로 반환
     }
-    
+
     private int nextInteger() {
         return Integer.parseInt(scanner.nextLine());
     }
-    
+
     private String nextString() {
         return removeSpace(scanner.nextLine());
     }
-    
+
     private String removeSpace(String line) {
         return line.replaceAll(SPACE, BLANK);
     }

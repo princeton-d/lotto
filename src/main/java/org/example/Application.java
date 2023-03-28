@@ -32,6 +32,7 @@ public class Application {
         outputView.printResult(rankList);
     
         BigDecimal profit = CalculateUtil.calculateProfit(rankList);
+        Money baseMoney = new Money(14000);
         BigDecimal rateOfReturn = CalculateUtil.calculateRateOfReturn(money.getBaseMoney(), profit);
         outputView.printRateOfReturn(rateOfReturn);
     }
