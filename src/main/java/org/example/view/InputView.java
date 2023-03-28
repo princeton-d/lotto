@@ -18,13 +18,29 @@ public class InputView {
     
     public int inputManualLottoNum() {
         System.out.println();
-        System.out.println("구입 금액을 입력해 주세요.");
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         return nextInteger();
     }
     
+    public void manualLottoNumbersGuid() {
+        System.out.println();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+    
     public List<Integer> inputManualLottoNumbers() {
+        return extractInteger(nextString());
+    }
+
+    public List<Integer> inputLastWeekWinningNumbers() {
+        System.out.println();
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return extractInteger(nextString());
+    }
+
+    public int inputBonusBallNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+
+        return nextInteger();
     }
     
     private List<Integer> extractInteger(String line) {
