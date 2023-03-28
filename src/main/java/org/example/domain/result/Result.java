@@ -4,35 +4,60 @@ import org.example.domain.lotto.Lotto;
 import org.example.domain.lotto.LottoList;
 import org.example.domain.winning_number.BonusBallNumber;
 import org.example.domain.winning_number.WinningNumbers;
+import org.example.util.FilteringNumberOfRankUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Result {
-    /**
-     * 1. 로또번호에 보너스볼 있는지 유무 contains 사용해 boolean 값으로 저장
-     * 2. 로또번호 + 당첨결과 indexOf 와 lastIndexOf 를 사용해 중복된 것만 hashSet 에 저장.
-     */
-    Rank firstRank = Rank.MATCH_SIX_NUMBERS;
-    Rank secondRank = Rank.MATCH_FIVE_NUMBERS_AND_BONUS_BALL;
-    Rank thirdRank = Rank.MATCH_FIVE_NUMBER;
-    Rank fourthRank = Rank.MATCH_FOUR_NUMBERS;
-    Rank fifthRank = Rank.MATCH_THREE_NUMBERS;
-    private final int result;
-
-    private Result() {
-        this.result = 1;
+    private Map<BigDecimal, BigDecimal> rankList;
+    
+    
+    public Result(LottoList lottoList, WinningNumbers winningNumbers, BonusBallNumber bonusBallNumber) {
+        this.rankList = createResult(lottoList, winningNumbers, bonusBallNumber);
     }
-
-    public Result createResult(LottoList lottoList, WinningNumbers winningNumbers, BonusBallNumber bonusBallNumber) {
+    
+    private Map<BigDecimal, BigDecimal> createResult(LottoList lottoList, WinningNumbers winningNumbers, BonusBallNumber bonusBallNumber) {
         List<Lotto> lottos = lottoList.getLottoList();
-        List<Integer> rankList = new ArrayList<>();
-
+        List<Integer> winning = winningNumbers.getWinningNumbers();
+        int bonusBall = bonusBallNumber.getBonusBallNumber();
+        List<Integer> resultList = new ArrayList<>();
+        
         for (Lotto lotto : lottos) {
-
+            List<Integer> resultNumbers = new ArrayList<>();
+            
+            resultNumbers.addAll(lotto.getLottoNumbersArray());
+            resultNumbers.addAll(winning);
+            
+            int numberOfDuplicate = findDuplicateNumber(resultNumbers).size();
+            int rank = checkedRank(numberOfDuplicate, bonusBall, lotto.getLottoNumbersArray());
+    
+            resultList.add(rank);
         }
-
-        return new Result();
+    
+        Map<BigDecimal, BigDecimal> rankList = FilteringNumberOfRankUtil.FilteringRank(resultList);
+        
+        return rankList;
+    }
+    
+    private List<Integer> findDuplicateNumber(List<Integer> resultNumbers) {
+        Set<Integer> duplicateNumber = new HashSet<>();
+    
+        return resultNumbers.stream()
+            .filter(number -> !duplicateNumber.add(number))
+            .collect(Collectors.toList());
+    }
+    
+    private int checkedRank(int numberOfDuplicate, int bonusBallNumber, List<Integer> lotto) {
+        if (numberOfDuplicate == 5 && lotto.contains(bonusBallNumber)) {
+            return 7;
+        }
+    
+        return numberOfDuplicate;
+    }
+    
+    public Map<BigDecimal, BigDecimal> getResult() {
+        return rankList;
     }
 }

@@ -6,4 +6,8 @@ public class BonusBallNumber {
     public BonusBallNumber(int bonusBall) {
         this.bonusBall = bonusBall;
     }
+    
+    public int getBonusBallNumber() {
+        return bonusBall;
+    }
 }

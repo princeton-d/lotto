@@ -22,9 +22,12 @@ public class InputView {
         return nextInteger();
     }
     
-    public List<Integer> inputManualLottoNumbers() {
+    public void manualLottoNumbersGuid() {
         System.out.println();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+    
+    public List<Integer> inputManualLottoNumbers() {
         return extractInteger(nextString());
     }
 
