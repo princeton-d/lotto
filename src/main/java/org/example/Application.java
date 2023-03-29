@@ -20,7 +20,10 @@ public class Application {
     private Money money;
     
     public void startApplication() {
-        money = new Money(inputView.inputMoney());
+        // exceptionHandler 에서 validatePrincipal 메소드 실행해서 예외처리 함
+        // money 만들기
+        
+        money = new Money(inputView.inputPrincipal());
         List<Lotto> manualLottos = buyManualLotto();
         List<Lotto> autoLottos = buyAutoLotto();
         LottoList lottoList = new LottoList(manualLottos, autoLottos);
@@ -32,12 +35,12 @@ public class Application {
         outputView.printResult(rankList);
     
         BigDecimal profit = CalculateUtil.calculateProfit(rankList);
-        BigDecimal rateOfReturn = CalculateUtil.calculateRateOfReturn(money.getBaseMoney(), profit);
+        BigDecimal rateOfReturn = CalculateUtil.calculateRateOfReturn(money.getPrincipal(), profit);
         outputView.printRateOfReturn(rateOfReturn);
     }
     
     private List<Lotto> buyManualLotto() {
-        int manualLottoNum = inputView.inputManualLottoNum();
+        int manualLottoNum = inputView.inputManualLottoCount();
         money.buyLotto(manualLottoNum);
         
         inputView.manualLottoNumbersGuid();

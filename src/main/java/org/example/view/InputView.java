@@ -11,12 +11,12 @@ public class InputView {
     private static final String DELIMITER = ",";
     private static final Scanner scanner = new Scanner(System.in);
     
-    public int inputMoney() {
+    public int inputPrincipal() {
         System.out.println("구입 금액을 입력해 주세요.");
         return nextInteger();
     }
     
-    public int inputManualLottoNum() {
+    public int inputManualLottoCount() {
         System.out.println();
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         return nextInteger();
@@ -30,16 +30,16 @@ public class InputView {
     public List<Integer> inputManualLottoNumbers() {
         return extractInteger(nextString());
     }
-
+    
     public List<Integer> inputLastWeekWinningNumbers() {
         System.out.println();
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return extractInteger(nextString());
     }
-
+    
     public int inputBonusBallNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
-
+        
         return nextInteger();
     }
     
@@ -51,7 +51,9 @@ public class InputView {
     }
     
     private int nextInteger() {
-        return Integer.parseInt(scanner.nextLine());
+        String inputValue = scanner.nextLine();
+        validateNumberFormat(inputValue);
+        return Integer.parseInt(inputValue);
     }
     
     private String nextString() {
@@ -60,5 +62,13 @@ public class InputView {
     
     private String removeSpace(String line) {
         return line.replaceAll(SPACE, BLANK);
+    }
+    
+    private void validateNumberFormat(String line) {
+        try {
+            Integer.parseInt(line);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("숫자만 입력할 수 있습니다.");
+        }
     }
 }
