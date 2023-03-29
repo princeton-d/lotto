@@ -52,11 +52,7 @@ public class InputView {
     
     private int nextInteger() {
         String inputValue = scanner.nextLine();
-    
-        if (!isValidateNumberFormat(inputValue)) {
-            throwNonNumericInputException();
-        }
-        
+        validateNumberFormat(inputValue);
         return Integer.parseInt(inputValue);
     }
     
@@ -68,22 +64,11 @@ public class InputView {
         return line.replaceAll(SPACE, BLANK);
     }
     
-    private boolean isValidateNumberFormat(String line) {
+    private void validateNumberFormat(String line) {
         try {
             Integer.parseInt(line);
         } catch (NumberFormatException e) {
-            return false;
-        }
-    
-        return true;
-    }
-    
-    private void throwNonNumericInputException() {
-        try {
-            throw new NumberFormatException("\n숫자만 입력할 수 있습니다.");
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
-            inputPrincipal();
+            throw new NumberFormatException("숫자만 입력할 수 있습니다.");
         }
     }
 }

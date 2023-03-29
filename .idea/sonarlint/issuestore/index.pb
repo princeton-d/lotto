@@ -12,7 +12,5 @@ n
 >src/main/java/org/example/domain/lotto/AutoLottoGenerator.java,9/8/98710e107b850fc0d845e2dc05e540579445951f
 p
 @src/main/java/org/example/domain/lotto/ManualLottoGenerator.java,0/4/0479b686f21ce4f847f03904ca519744ea56a62c
-a
-1src/main/java/org/example/util/CalculateUtil.java,1/5/15d2914a2df685540ece6590a3695c626c08f6f1
 t
 Dsrc/main/java/org/example/domain/winning_number/BonusBallNumber.java,1/6/1610e08c87168812f6369246d0f352f0b391e2a1

@@ -1,8 +1,5 @@
 package org.example.domain.money;
 
-import org.example.exception.NotAllowNumberException;
-import org.example.view.InputView;
-
 import java.math.BigDecimal;
 
 public class Money {
@@ -32,7 +29,7 @@ public class Money {
     
     private void validatePrincipal(BigDecimal principal) {
         if (principal.compareTo(PRICE_OF_LOTTO) == -1) {
-            throw new NotAllowNumberException("로또의 가격은 1000원입니다. 1000원 이상의 금액을 입력해주세요.");
+            throw new IllegalArgumentException("로또의 가격은 1000원입니다. 1000원 이상의 금액을 입력해주세요.");
         }
     }
 }
