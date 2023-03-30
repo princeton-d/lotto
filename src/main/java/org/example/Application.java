@@ -20,9 +20,6 @@ public class Application {
     private Money money;
     
     public void startApplication() {
-        // exceptionHandler 에서 validatePrincipal 메소드 실행해서 예외처리 함
-        // money 만들기
-        
         money = new Money(inputView.inputPrincipal());
         List<Lotto> manualLottos = buyManualLotto();
         List<Lotto> autoLottos = buyAutoLotto();
@@ -40,13 +37,13 @@ public class Application {
     }
     
     private List<Lotto> buyManualLotto() {
-        int manualLottoNum = inputView.inputManualLottoCount();
-        money.buyLotto(manualLottoNum);
+        int manualLottoCount = inputView.inputManualLottoCount();
+        money.buyLotto(manualLottoCount);
         
         inputView.manualLottoNumbersGuid();
         
         return Stream.generate(() -> inputView.inputManualLottoNumbers())
-            .limit(manualLottoNum)
+            .limit(manualLottoCount)
             .map(lottoNumbers -> new Lotto(new ManualLottoGenerator(lottoNumbers)))
             .collect(Collectors.toList());
     }

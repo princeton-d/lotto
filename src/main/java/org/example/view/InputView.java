@@ -1,5 +1,6 @@
 package org.example.view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -44,10 +45,22 @@ public class InputView {
     }
     
     private List<Integer> extractInteger(String line) {
-        return Arrays.stream(line.split(DELIMITER))
-            .distinct() // 중복을 제거하고 새로운 스트림은 반환
-            .map(Integer::parseInt) // (item -> Integer.parseInt(item))
-            .collect(Collectors.toList()); // stream 의 데이터를 변형처리 하고 원하는 자료형으로 반환
+        int ALLOW_LOTTO_COUNT = 6;
+        int lottoNumberCount = line.split(DELIMITER).length;
+    
+        if (lottoNumberCount != ALLOW_LOTTO_COUNT) {
+            throw new ArrayIndexOutOfBoundsException("로또 번호는 6개의 번호를 입력해야합니다.");
+        }
+        
+        try {
+            return Arrays.stream(line.split(DELIMITER))
+                .distinct() // 중복을 제거하고 새로운 스트림은 반환
+                .limit(6)
+                .map(Integer::parseInt) // (item -> Integer.parseInt(item))
+                .collect(Collectors.toList()); // stream 의 데이터를 변형처리 하고 원하는 자료형으로 반환
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("숫자와 쉼표(\",\"), 공백(\" \")으로 이루어지도록 번호를 입력해주세요.");
+        }
     }
     
     private int nextInteger() {
