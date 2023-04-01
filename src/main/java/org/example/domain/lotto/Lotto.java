@@ -12,13 +12,13 @@ public class Lotto {
         this.lottoNumbers = lottoGenerator.generate();
     }
 
-    public List<Integer> getLottoNumbersArray() {
-        List<Integer> lottoNumberArray = new ArrayList<>();
+    public List<Integer> getLottoNumbers() {
+        List<Integer> lottoNumbers = new ArrayList<>();
 
         for (LottoNumber number : this.lottoNumbers) {
-            lottoNumberArray.add(number.getNumber());
+            lottoNumbers.add(number.getNumber());
         }
 
-        return lottoNumberArray;
+        return lottoNumbers;
     }
 }

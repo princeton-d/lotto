@@ -10,11 +10,11 @@ import java.util.Map;
 
 public class OutputView {
     
-    public void printLottoList(LottoList lottoList, List<Lotto> manualLottos, List<Lotto> autoLottos) {
+    public void printLottosList(LottoList lottoList, List<Lotto> manualLottos, List<Lotto> autoLottos) {
         System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualLottos.size(), autoLottos.size());
 
         for (Lotto lotto : lottoList.getLottoList()) {
-            System.out.println(lotto.getLottoNumbersArray());
+            System.out.println(lotto.getLottoNumbers());
         }
     }
 

@@ -24,7 +24,7 @@ public class Application {
         List<Lotto> manualLottos = buyManualLotto();
         List<Lotto> autoLottos = buyAutoLotto();
         LottoList lottoList = new LottoList(manualLottos, autoLottos);
-        outputView.printLottoList(lottoList, manualLottos, autoLottos);
+        outputView.printLottosList(lottoList, manualLottos, autoLottos);
         
         WinningNumbers winningNumbers = new WinningNumbers(inputView.inputLastWeekWinningNumbers());
         BonusBallNumber bonusBall = new BonusBallNumber(inputView.inputBonusBallNumber());
@@ -49,14 +49,14 @@ public class Application {
     }
     
     private List<Lotto> buyAutoLotto() {
-        int autoLottoNum = money.countPurchasableLotto();
+        int autoLottoCount = money.countPurchasableLotto();
         
-        money.buyLotto(autoLottoNum);
+        money.buyLotto(autoLottoCount);
         
         LottoGenerator autoLottoGenerator = new AutoLottoGenerator();
         
         return Stream.generate(() -> new Lotto(autoLottoGenerator))
-            .limit(autoLottoNum)
+            .limit(autoLottoCount)
             .collect(Collectors.toList());
     }
 }
