@@ -27,11 +27,11 @@ public class Result {
         for (Lotto lotto : lottos) {
             List<Integer> resultNumbers = new ArrayList<>();
             
-            resultNumbers.addAll(lotto.getLottoNumbersArray());
+            resultNumbers.addAll(lotto.getLottoNumbers());
             resultNumbers.addAll(winning);
             
             int numberOfDuplicate = findDuplicateNumber(resultNumbers).size();
-            int rank = checkedRank(numberOfDuplicate, bonusBall, lotto.getLottoNumbersArray());
+            int rank = checkedRank(numberOfDuplicate, bonusBall, lotto.getLottoNumbers());
     
             resultList.add(rank);
         }

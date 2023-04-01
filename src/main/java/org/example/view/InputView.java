@@ -1,9 +1,6 @@
 package org.example.view;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InputView {
@@ -48,6 +45,8 @@ public class InputView {
         int ALLOW_LOTTO_COUNT = 6;
         int lottoNumberCount = line.split(DELIMITER).length;
     
+        validateDuplicateLottoNumber(lottoNumberCount, line);
+    
         if (lottoNumberCount != ALLOW_LOTTO_COUNT) {
             throw new ArrayIndexOutOfBoundsException("로또 번호는 6개의 번호를 입력해야합니다.");
         }
@@ -82,6 +81,13 @@ public class InputView {
             Integer.parseInt(line);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("숫자만 입력할 수 있습니다.");
+        }
+    }
+    
+    private void validateDuplicateLottoNumber(int prevCount, String line) {
+        int deduplicateValue = new HashSet<>(Arrays.asList(line.split(DELIMITER))).size();
+        if (prevCount != deduplicateValue) {
+            throw new RuntimeException("중복된 수는 허용하지 않습니다.");
         }
     }
 }
