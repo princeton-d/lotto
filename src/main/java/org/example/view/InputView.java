@@ -46,11 +46,8 @@ public class InputView {
         int lottoNumberCount = line.split(DELIMITER).length;
     
         validateDuplicateLottoNumber(lottoNumberCount, line);
+        validateLottoCount(ALLOW_LOTTO_COUNT, lottoNumberCount);
     
-        if (lottoNumberCount != ALLOW_LOTTO_COUNT) {
-            throw new ArrayIndexOutOfBoundsException("로또 번호는 6개의 번호를 입력해야합니다.");
-        }
-        
         try {
             return Arrays.stream(line.split(DELIMITER))
                 .distinct() // 중복을 제거하고 새로운 스트림은 반환
@@ -88,6 +85,12 @@ public class InputView {
         int deduplicateValue = new HashSet<>(Arrays.asList(line.split(DELIMITER))).size();
         if (prevCount != deduplicateValue) {
             throw new RuntimeException("중복된 수는 허용하지 않습니다.");
+        }
+    }
+    
+    private void validateLottoCount(int ALLOW_LOTTO_COUNT, int lottoNumberCount) {
+        if (lottoNumberCount != ALLOW_LOTTO_COUNT) {
+            throw new ArrayIndexOutOfBoundsException("로또 번호는 6개의 번호를 입력해야합니다.");
         }
     }
 }

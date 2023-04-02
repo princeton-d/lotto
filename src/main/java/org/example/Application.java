@@ -2,9 +2,8 @@ package org.example;
 
 import org.example.domain.lotto.*;
 import org.example.domain.money.Money;
+import org.example.domain.rank.Rank;
 import org.example.domain.result.Result;
-import org.example.domain.winning_number.BonusBallNumber;
-import org.example.domain.winning_number.WinningNumbers;
 import org.example.util.CalculateUtil;
 import org.example.view.InputView;
 import org.example.view.OutputView;
@@ -25,10 +24,10 @@ public class Application {
         List<Lotto> autoLottos = buyAutoLotto();
         LottoList lottoList = new LottoList(manualLottos, autoLottos);
         outputView.printLottosList(lottoList, manualLottos, autoLottos);
-        
-        WinningNumbers winningNumbers = new WinningNumbers(inputView.inputLastWeekWinningNumbers());
-        BonusBallNumber bonusBall = new BonusBallNumber(inputView.inputBonusBallNumber());
-        Result rankList = new Result(lottoList, winningNumbers, bonusBall);
+    
+        Lotto winningLotto = new Lotto(new ManualLottoGenerator(inputView.inputLastWeekWinningNumbers()));
+        LottoNumber bonusNumber = new LottoNumber(inputView.inputBonusBallNumber());
+        Result rankList = new Result(lottoList, winningLotto, bonusNumber);
         outputView.printResult(rankList);
     
         BigDecimal profit = CalculateUtil.calculateProfit(rankList);

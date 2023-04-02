@@ -8,8 +8,9 @@ public class LottoList {
     private List<Lotto> lottoList;
     
     public LottoList(List<Lotto> manualLottos, List<Lotto> autoLottos) {
-        List<Lotto> lottoList = Stream.concat(manualLottos.stream(), autoLottos.stream()).collect(Collectors.toList());
-
+        List<Lotto> lottoList = Stream.concat(manualLottos.stream(), autoLottos.stream())
+            .collect(Collectors.toList());
+        
         this.lottoList = lottoList;
     }
     
