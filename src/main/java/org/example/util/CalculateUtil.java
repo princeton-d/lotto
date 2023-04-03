@@ -20,8 +20,12 @@ public class CalculateUtil {
         BigDecimal profit = new BigDecimal(0);
 
         for (Map.Entry<BigDecimal, Integer> entrySet : rankList.getResult().entrySet()) {
-            boolean zeroRewardState = isValidateZeroNumber(entrySet.getValue());
-            BigDecimal reward = calculationReward(zeroRewardState, entrySet.getKey(), entrySet.getValue());
+            BigDecimal prizeMoney = entrySet.getKey();
+            int rewardCount = entrySet.getValue();
+            boolean zeroRewardState = isValidateZeroNumber(rewardCount);
+            
+            BigDecimal reward = calculationReward(zeroRewardState, prizeMoney, rewardCount);
+            
             profit = profit.add(reward);
         }
     

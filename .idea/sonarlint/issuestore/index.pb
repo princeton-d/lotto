@@ -2,8 +2,6 @@
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
-p
-@src/main/java/org/example/domain/lotto/ManualLottoGenerator.java,0/4/0479b686f21ce4f847f03904ca519744ea56a62c
 a
 1src/main/java/org/example/domain/lotto/Lotto.java,e/5/e5ee8b0adec88bcf699b8a321b32c8f789f4478f
 n
