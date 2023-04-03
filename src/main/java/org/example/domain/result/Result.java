@@ -3,8 +3,6 @@ package org.example.domain.result;
 import org.example.domain.lotto.Lotto;
 import org.example.domain.lotto.LottoList;
 import org.example.domain.lotto.LottoNumber;
-import org.example.domain.winning_number.BonusBallNumber;
-import org.example.domain.winning_number.WinningNumbers;
 import org.example.util.FilteringNumberOfRankUtil;
 
 import java.math.BigDecimal;
@@ -12,53 +10,44 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Result {
-    private Map<BigDecimal, BigDecimal> rankList;
+    private Map<BigDecimal, Integer> rankList;
     
     
     public Result(LottoList lottoList, Lotto winningNumbers, LottoNumber bonusBallNumber) {
         this.rankList = createResult(lottoList, winningNumbers, bonusBallNumber);
     }
     
-    private Map<BigDecimal, BigDecimal> createResult(LottoList lottoList, Lotto winningNumbers, LottoNumber bonusBallNumber) {
+    private Map<BigDecimal, Integer> createResult(LottoList lottoList, Lotto winningNumbers, LottoNumber bonusBallNumber) {
         List<Lotto> lottos = lottoList.getLottoList();
         List<Integer> winning = winningNumbers.getLottoNumbers();
         int bonusBall = bonusBallNumber.getNumber();
         List<Integer> resultList = new ArrayList<>();
         
         for (Lotto lotto : lottos) {
-            List<Integer> resultNumbers = new ArrayList<>();
+            List<Integer> duplicateLottoNumber = new ArrayList<>();
+            boolean isBonus = lotto.getLottoNumbers().contains(bonusBall);
+            duplicateLottoNumber.addAll(lotto.getLottoNumbers());
+            duplicateLottoNumber.retainAll(winning);
+            int duplicateLottoCount = duplicateLottoNumber.size();
+            int rank = checkedRank(duplicateLottoCount, isBonus);
             
-            resultNumbers.addAll(lotto.getLottoNumbers());
-            resultNumbers.addAll(winning);
-            
-            int numberOfDuplicate = findDuplicateNumber(resultNumbers).size();
-            int rank = checkedRank(numberOfDuplicate, bonusBall, lotto.getLottoNumbers());
-    
             resultList.add(rank);
         }
-    
-        Map<BigDecimal, BigDecimal> rankList = FilteringNumberOfRankUtil.FilteringRank(resultList);
+        
+        Map<BigDecimal, Integer> rankList = FilteringNumberOfRankUtil.FilteringRank(resultList);
         
         return rankList;
     }
     
-    private List<Integer> findDuplicateNumber(List<Integer> resultNumbers) {
-        Set<Integer> duplicateNumber = new HashSet<>();
-    
-        return resultNumbers.stream()
-            .filter(number -> !duplicateNumber.add(number))
-            .collect(Collectors.toList());
-    }
-    
-    private int checkedRank(int numberOfDuplicate, int bonusBallNumber, List<Integer> lotto) {
-        if (numberOfDuplicate == 5 && lotto.contains(bonusBallNumber)) {
+    private int checkedRank(int duplicateLottoCount, boolean isBonus) {
+        if (duplicateLottoCount == 5 && isBonus) {
             return 7;
         }
-    
-        return numberOfDuplicate;
+        
+        return duplicateLottoCount;
     }
     
-    public Map<BigDecimal, BigDecimal> getResult() {
+    public Map<BigDecimal, Integer> getResult() {
         return rankList;
     }
 }

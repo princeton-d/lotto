@@ -19,7 +19,7 @@ public class OutputView {
     }
 
     public void printResult(Result result) {
-        Map<BigDecimal, BigDecimal> rankList = result.getResult();
+        Map<BigDecimal, Integer> rankList = result.getResult();
         
         System.out.println();
         System.out.println("당첨 통계");

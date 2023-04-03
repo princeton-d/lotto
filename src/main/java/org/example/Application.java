@@ -2,7 +2,6 @@ package org.example;
 
 import org.example.domain.lotto.*;
 import org.example.domain.money.Money;
-import org.example.domain.rank.Rank;
 import org.example.domain.result.Result;
 import org.example.util.CalculateUtil;
 import org.example.view.InputView;
