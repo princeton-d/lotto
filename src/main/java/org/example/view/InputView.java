@@ -1,14 +1,13 @@
 package org.example.view;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InputView {
     private static final String SPACE = " ";
     private static final String BLANK = "";
     private static final String DELIMITER = ",";
+    private static final int ALLOW_LOTTO_COUNT = 6;
     private static final Scanner scanner = new Scanner(System.in);
     
     public int inputPrincipal() {
@@ -44,10 +43,20 @@ public class InputView {
     }
     
     private List<Integer> extractInteger(String line) {
-        return Arrays.stream(line.split(DELIMITER))
-            .distinct() // 중복을 제거하고 새로운 스트림은 반환
-            .map(Integer::parseInt) // (item -> Integer.parseInt(item))
-            .collect(Collectors.toList()); // stream 의 데이터를 변형처리 하고 원하는 자료형으로 반환
+        int lottoNumberCount = line.split(DELIMITER).length;
+    
+        validateDuplicateLottoNumber(lottoNumberCount, line);
+        validateLottoCount(ALLOW_LOTTO_COUNT, lottoNumberCount);
+    
+        try {
+            return Arrays.stream(line.split(DELIMITER))
+                .distinct() // 중복을 제거하고 새로운 스트림은 반환
+                .limit(6)
+                .map(Integer::parseInt) // (item -> Integer.parseInt(item))
+                .collect(Collectors.toList()); // stream 의 데이터를 변형처리 하고 원하는 자료형으로 반환
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("숫자와 쉼표(\",\"), 공백(\" \")으로 이루어지도록 번호를 입력해주세요.");
+        }
     }
     
     private int nextInteger() {
@@ -69,6 +78,19 @@ public class InputView {
             Integer.parseInt(line);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("숫자만 입력할 수 있습니다.");
+        }
+    }
+    
+    private void validateDuplicateLottoNumber(int prevCount, String line) {
+        int deduplicateValue = new HashSet<>(Arrays.asList(line.split(DELIMITER))).size();
+        if (prevCount != deduplicateValue) {
+            throw new RuntimeException("중복된 수는 허용하지 않습니다.");
+        }
+    }
+    
+    private void validateLottoCount(int ALLOW_LOTTO_COUNT, int lottoNumberCount) {
+        if (lottoNumberCount != ALLOW_LOTTO_COUNT) {
+            throw new ArrayIndexOutOfBoundsException("로또 번호는 6개의 번호를 입력해야합니다.");
         }
     }
 }

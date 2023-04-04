@@ -5,11 +5,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoList {
-    private List<Lotto> lottoList;
+    private final List<Lotto> lottoList;
     
     public LottoList(List<Lotto> manualLottos, List<Lotto> autoLottos) {
-        List<Lotto> lottoList = Stream.concat(manualLottos.stream(), autoLottos.stream()).collect(Collectors.toList());
-
+        List<Lotto> lottoList = Stream.concat(manualLottos.stream(), autoLottos.stream())
+            .collect(Collectors.toList());
+        
         this.lottoList = lottoList;
     }
     

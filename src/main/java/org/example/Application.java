@@ -3,8 +3,6 @@ package org.example;
 import org.example.domain.lotto.*;
 import org.example.domain.money.Money;
 import org.example.domain.result.Result;
-import org.example.domain.winning_number.BonusBallNumber;
-import org.example.domain.winning_number.WinningNumbers;
 import org.example.util.CalculateUtil;
 import org.example.view.InputView;
 import org.example.view.OutputView;
@@ -20,46 +18,43 @@ public class Application {
     private Money money;
     
     public void startApplication() {
-        // exceptionHandler 에서 validatePrincipal 메소드 실행해서 예외처리 함
-        // money 만들기
-        
         money = new Money(inputView.inputPrincipal());
         List<Lotto> manualLottos = buyManualLotto();
         List<Lotto> autoLottos = buyAutoLotto();
         LottoList lottoList = new LottoList(manualLottos, autoLottos);
-        outputView.printLottoList(lottoList, manualLottos, autoLottos);
-        
-        WinningNumbers winningNumbers = new WinningNumbers(inputView.inputLastWeekWinningNumbers());
-        BonusBallNumber bonusBall = new BonusBallNumber(inputView.inputBonusBallNumber());
-        Result rankList = new Result(lottoList, winningNumbers, bonusBall);
-        outputView.printResult(rankList);
+        outputView.printLottosList(lottoList, manualLottos, autoLottos);
     
-        BigDecimal profit = CalculateUtil.calculateProfit(rankList);
+        Lotto winningLotto = new Lotto(new ManualLottoGenerator(inputView.inputLastWeekWinningNumbers()));
+        LottoNumber bonusNumber = new LottoNumber(inputView.inputBonusBallNumber());
+        Result result = new Result(lottoList, winningLotto, bonusNumber);
+        outputView.printResult(result);
+    
+        BigDecimal profit = CalculateUtil.calculateProfit(result);
         BigDecimal rateOfReturn = CalculateUtil.calculateRateOfReturn(money.getPrincipal(), profit);
         outputView.printRateOfReturn(rateOfReturn);
     }
     
     private List<Lotto> buyManualLotto() {
-        int manualLottoNum = inputView.inputManualLottoCount();
-        money.buyLotto(manualLottoNum);
+        int manualLottoCount = inputView.inputManualLottoCount();
+        money.buyLotto(manualLottoCount);
         
         inputView.manualLottoNumbersGuid();
         
         return Stream.generate(() -> inputView.inputManualLottoNumbers())
-            .limit(manualLottoNum)
+            .limit(manualLottoCount)
             .map(lottoNumbers -> new Lotto(new ManualLottoGenerator(lottoNumbers)))
             .collect(Collectors.toList());
     }
     
     private List<Lotto> buyAutoLotto() {
-        int autoLottoNum = money.countPurchasableLotto();
+        int autoLottoCount = money.countPurchasableLotto();
         
-        money.buyLotto(autoLottoNum);
+        money.buyLotto(autoLottoCount);
         
         LottoGenerator autoLottoGenerator = new AutoLottoGenerator();
         
         return Stream.generate(() -> new Lotto(autoLottoGenerator))
-            .limit(autoLottoNum)
+            .limit(autoLottoCount)
             .collect(Collectors.toList());
     }
 }
