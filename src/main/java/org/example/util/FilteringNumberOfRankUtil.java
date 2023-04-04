@@ -2,7 +2,6 @@ package org.example.util;
 
 import org.example.domain.rank.Rank;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
