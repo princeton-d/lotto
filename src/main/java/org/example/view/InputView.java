@@ -7,6 +7,7 @@ public class InputView {
     private static final String SPACE = " ";
     private static final String BLANK = "";
     private static final String DELIMITER = ",";
+    private static final int ALLOW_LOTTO_COUNT = 6;
     private static final Scanner scanner = new Scanner(System.in);
     
     public int inputPrincipal() {
@@ -42,7 +43,6 @@ public class InputView {
     }
     
     private List<Integer> extractInteger(String line) {
-        int ALLOW_LOTTO_COUNT = 6;
         int lottoNumberCount = line.split(DELIMITER).length;
     
         validateDuplicateLottoNumber(lottoNumberCount, line);

@@ -21,4 +21,8 @@ public class Lotto {
 
         return lottoNumbers;
     }
+    
+    public boolean isBonusMatched(int bonusNumber) {
+        return getLottoNumbers().contains(bonusNumber);
+    }
 }

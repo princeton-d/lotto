@@ -1,5 +1,6 @@
 package org.example.util;
 
+import org.example.domain.rank.Rank;
 import org.example.domain.result.Result;
 
 import java.math.BigDecimal;
@@ -13,14 +14,14 @@ public class CalculateUtil {
     }
 
     public static BigDecimal calculateRateOfReturn(BigDecimal baseMoney, BigDecimal profit) {
-        return (profit.subtract(baseMoney)).divide(baseMoney, RoundingMode.DOWN).multiply(setBigdecimal(NUM));
+        return (profit.subtract(baseMoney)).divide(baseMoney, RoundingMode.DOWN).multiply(new BigDecimal(NUM));
     }
 
     public static BigDecimal calculateProfit(Result rankList) {
         BigDecimal profit = new BigDecimal(0);
 
-        for (Map.Entry<BigDecimal, Integer> entrySet : rankList.getResult().entrySet()) {
-            BigDecimal prizeMoney = entrySet.getKey();
+        for (Map.Entry<Rank, Integer> entrySet : rankList.getResult().entrySet()) {
+            Rank prizeMoney = entrySet.getKey();
             int rewardCount = entrySet.getValue();
             boolean zeroRewardState = isValidateZeroNumber(rewardCount);
             
@@ -32,10 +33,6 @@ public class CalculateUtil {
         return profit;
     }
     
-    private static BigDecimal setBigdecimal(int target) {
-        return new BigDecimal(target);
-    }
-    
     private static boolean isValidateZeroNumber(int number) {
         if (number == 0) {
             return true;
@@ -44,11 +41,11 @@ public class CalculateUtil {
         return false;
     }
     
-    private static BigDecimal calculationReward(boolean zeroRewardState, BigDecimal prizeMoney, Integer rewardCount) {
+    private static BigDecimal calculationReward(boolean zeroRewardState, Rank prizeMoney, Integer rewardCount) {
         if (zeroRewardState) {
             return new BigDecimal(0);
         }
-    
-        return prizeMoney.multiply(setBigdecimal(rewardCount));
+        
+        return prizeMoney.getReward().multiply(new BigDecimal(rewardCount));
     }
 }

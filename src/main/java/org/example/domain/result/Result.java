@@ -3,6 +3,7 @@ package org.example.domain.result;
 import org.example.domain.lotto.Lotto;
 import org.example.domain.lotto.LottoList;
 import org.example.domain.lotto.LottoNumber;
+import org.example.domain.rank.Rank;
 import org.example.util.FilteringNumberOfRankUtil;
 
 import java.math.BigDecimal;
@@ -10,14 +11,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Result {
-    private Map<BigDecimal, Integer> rankList;
+    private Map<Rank, Integer> rankList;
     
     
     public Result(LottoList lottoList, Lotto winningNumbers, LottoNumber bonusBallNumber) {
         this.rankList = createResult(lottoList, winningNumbers, bonusBallNumber);
     }
     
-    private Map<BigDecimal, Integer> createResult(LottoList lottoList, Lotto winningNumbers, LottoNumber bonusBallNumber) {
+    private Map<Rank, Integer> createResult(LottoList lottoList, Lotto winningNumbers, LottoNumber bonusBallNumber) {
         List<Lotto> lottos = lottoList.getLottoList();
         List<Integer> winning = winningNumbers.getLottoNumbers();
         int bonusBall = bonusBallNumber.getNumber();
@@ -25,7 +26,7 @@ public class Result {
         
         for (Lotto lotto : lottos) {
             List<Integer> duplicateLottoNumber = new ArrayList<>();
-            boolean isBonus = lotto.getLottoNumbers().contains(bonusBall);
+            boolean isBonus = lotto.isBonusMatched(bonusBall);
             duplicateLottoNumber.addAll(lotto.getLottoNumbers());
             duplicateLottoNumber.retainAll(winning);
             int duplicateLottoCount = duplicateLottoNumber.size();
@@ -34,7 +35,7 @@ public class Result {
             resultList.add(rank);
         }
         
-        Map<BigDecimal, Integer> rankList = FilteringNumberOfRankUtil.FilteringRank(resultList);
+        Map<Rank, Integer> rankList = FilteringNumberOfRankUtil.FilteringRank(resultList);
         
         return rankList;
     }
@@ -47,7 +48,7 @@ public class Result {
         return duplicateLottoCount;
     }
     
-    public Map<BigDecimal, Integer> getResult() {
+    public Map<Rank, Integer> getResult() {
         return rankList;
     }
 }

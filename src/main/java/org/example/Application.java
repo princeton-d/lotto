@@ -26,10 +26,10 @@ public class Application {
     
         Lotto winningLotto = new Lotto(new ManualLottoGenerator(inputView.inputLastWeekWinningNumbers()));
         LottoNumber bonusNumber = new LottoNumber(inputView.inputBonusBallNumber());
-        Result rankList = new Result(lottoList, winningLotto, bonusNumber);
-        outputView.printResult(rankList);
+        Result result = new Result(lottoList, winningLotto, bonusNumber);
+        outputView.printResult(result);
     
-        BigDecimal profit = CalculateUtil.calculateProfit(rankList);
+        BigDecimal profit = CalculateUtil.calculateProfit(result);
         BigDecimal rateOfReturn = CalculateUtil.calculateRateOfReturn(money.getPrincipal(), profit);
         outputView.printRateOfReturn(rateOfReturn);
     }

@@ -17,4 +17,8 @@ public enum Rank {
         this.matching = matching;
         this.reward = new BigDecimal(reward);
     }
+    
+    public BigDecimal getReward() {
+        return reward;
+    }
 }
